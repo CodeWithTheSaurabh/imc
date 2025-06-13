@@ -26,6 +26,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedDate, setSelectedDate] = useState(getCurrentDate());
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [selectedZone, setSelectedZone] = useState('');
   const [tripCountFilter, setTripCountFilter] = useState('all');
   const [availableDates, setAvailableDates] = useState([]);
@@ -79,7 +81,7 @@ const Dashboard = () => {
 
   const renderLessThan3TripsNavigationCard = (sheetName) => {
     const sheetData = allData[sheetName] || [];
-    const filteredData = filterData(sheetData, selectedDate, selectedZone, tripCountFilter, sheetName);
+    const filteredData = filterData(sheetData, selectedDate, selectedZone, tripCountFilter, sheetName, startDate, endDate);
     const valueField = getValueField(sheetName);
     const chartData = processDataForChart(filteredData, valueField, 'Zone', sheetName, tripCountFilter);
 
@@ -189,7 +191,7 @@ const Dashboard = () => {
     const isLessThan3TripsChart = sheetName === 'lessThan3Trips';
     const currentTripCountFilter = isLessThan3TripsChart ? tripCountFilter : null;
 
-    const filteredData = filterData(sheetData, selectedDate, selectedZone, currentTripCountFilter, sheetName);
+    const filteredData = filterData(sheetData, selectedDate, selectedZone, currentTripCountFilter, sheetName, startDate, endDate);
     const valueField = getValueField(sheetName);
     const chartData = processDataForChart(filteredData, valueField, 'Zone', sheetName, currentTripCountFilter);
     const chartOptions = getChartConfig(CHART_TITLES[sheetName], sheetName);
@@ -262,6 +264,8 @@ const Dashboard = () => {
         onClose={() => setShowVehicleTripsModal(false)}
         allData={allData}
         selectedDate={selectedDate}
+        startDate={startDate}
+        endDate={endDate}
         selectedZone={selectedZone}
         loading={loading}
         error={error}
@@ -272,6 +276,10 @@ const Dashboard = () => {
         <Filters
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
+          startDate={startDate}
+          setStartDate={setStartDate}
+          endDate={endDate}
+          setEndDate={setEndDate}
           selectedZone={selectedZone}
           setSelectedZone={setSelectedZone}
           availableZones={availableZones}

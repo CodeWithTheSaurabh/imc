@@ -4,7 +4,6 @@ const SPREADSHEET_ID = '1DsDk17Vyf2zj5kxr86JPVhYZ04ZstY0IAH7La4UeVa0';
 // Sheet GIDs for different reports
 const SHEET_GIDS = {
   onRouteVehicles: '0',
-  onBoardAfter3PM: '1335240771',
   lessThan3Trips: '1474814226',
   glitchPercentage: '1163492617',
   issuesPost0710: '203626227',

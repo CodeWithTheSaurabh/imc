@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { shouldIncludeRow } from './dateFilterLogic';
 
 // Get current date in YYYY-MM-DD format
 export const getCurrentDate = () => {
@@ -18,51 +19,47 @@ const normalizeDate = (dateStr) => {
   return format(date, 'yyyy-MM-dd');
 };
 
-// Filter data by date, zone, and trip count (for lessThan3Trips sheet)
-export const filterData = (data, selectedDate, selectedZone, tripCountFilter = null, sheetName = '') => {
+/**
+ * Filter data by date, zone, and trip count
+ *
+ * This is the main filtering function used throughout the application.
+ * It uses the refactored filtering logic for better maintainability.
+ *
+ * @param {Array} data - Array of data rows to filter
+ * @param {string} selectedDate - Specific date filter value
+ * @param {string} selectedZone - Zone filter value
+ * @param {string} tripCountFilter - Trip count filter value
+ * @param {string} sheetName - Name of the sheet being filtered
+ * @param {string} startDate - Start date for range filtering
+ * @param {string} endDate - End date for range filtering
+ * @returns {Array} Filtered data array
+ */
+export const filterData = (
+  data,
+  selectedDate,
+  selectedZone,
+  tripCountFilter = null,
+  sheetName = '',
+  startDate = '',
+  endDate = ''
+) => {
+  // Return empty array if no data provided
   if (!data || data.length === 0) {
     return [];
   }
 
+  // Prepare filter object for the new filtering logic
+  const filters = {
+    selectedDate,
+    startDate,
+    endDate,
+    selectedZone,
+    tripCountFilter
+  };
+
+  // Apply filtering using the refactored logic
   const filtered = data.filter(row => {
-    // For workshop charts, be more lenient with date filtering to ensure data shows
-    if (sheetName === 'sphereWorkshopExit') {
-      // Only filter by zone if specified, ignore date filtering for now to troubleshoot
-      const zoneMatch = !selectedZone || String(row.Zone) === String(selectedZone);
-      return zoneMatch;
-    }
-
-    // Normalize dates for comparison
-    const rowDate = normalizeDate(row.Date);
-    const filterDate = normalizeDate(selectedDate);
-
-    const dateMatch = !selectedDate || rowDate === filterDate;
-    const zoneMatch = !selectedZone || String(row.Zone) === String(selectedZone);
-
-    // Apply trip count filter for lessThan3Trips data
-    let tripCountMatch = true;
-    if (tripCountFilter !== null && tripCountFilter !== 'all' && (row.TripCount0 !== undefined || row.TripCount1 !== undefined || row.TripCount2 !== undefined)) {
-      switch (tripCountFilter) {
-        case '0':
-          tripCountMatch = (row.TripCount0 || 0) > 0;
-          break;
-        case '1':
-          tripCountMatch = (row.TripCount1 || 0) > 0;
-          break;
-        case '2':
-          tripCountMatch = (row.TripCount2 || 0) > 0;
-          break;
-        default:
-          // For 'all' or any other value, show all vehicles with <3 trips
-          tripCountMatch = ((row.TripCount0 || 0) + (row.TripCount1 || 0) + (row.TripCount2 || 0)) > 0;
-          break;
-      }
-    } else if (tripCountFilter === 'all' && (row.TripCount0 !== undefined || row.TripCount1 !== undefined || row.TripCount2 !== undefined)) {
-      // For 'all' filter, include any row that has trip count data
-      tripCountMatch = ((row.TripCount0 || 0) + (row.TripCount1 || 0) + (row.TripCount2 || 0)) >= 0;
-    }
-
-    return dateMatch && zoneMatch && tripCountMatch;
+    return shouldIncludeRow(row, filters, sheetName);
   });
 
   return filtered;
@@ -750,7 +747,6 @@ export const getChartConfig = (title, sheetName) => {
 // Chart titles mapping
 export const CHART_TITLES = {
   onRouteVehicles: 'On Route Vehicles',
-  onBoardAfter3PM: 'Vehicle on Route after 3:00 PM',
   lessThan3Trips: 'Vehicles with Less than 3 Trips',
   glitchPercentage: 'Route Percent Coverage',
   issuesPost0710: 'Vehicle Starting after 7:10AM',

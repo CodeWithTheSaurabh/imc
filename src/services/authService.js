@@ -141,7 +141,7 @@ export const signInUser = async (email, password) => {
     if (userData.status !== USER_STATUS.APPROVED) {
       await signOut(auth);
       let message = 'Account access denied.';
-      
+
       switch (userData.status) {
         case USER_STATUS.PENDING:
           message = 'Your account is pending approval. Please wait for admin approval.';
@@ -153,7 +153,7 @@ export const signInUser = async (email, password) => {
           message = 'Your account has been suspended. Please contact administrator.';
           break;
       }
-      
+
       return {
         success: false,
         message: message
@@ -394,6 +394,8 @@ export const reactivateUser = async (userId, adminId) => {
     return { success: false, message: error.message };
   }
 };
+
+
 
 // Delete user (admin only) - DANGEROUS OPERATION
 export const deleteUser = async (userId, adminId, reason = '') => {

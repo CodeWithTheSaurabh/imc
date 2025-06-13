@@ -188,7 +188,6 @@ class MultiSourceDataService {
   async fetchAllSheetsDataWithFailover() {
     const sheetNames = [
       'onRouteVehicles',
-      'onBoardAfter3PM', 
       'lessThan3Trips',
       'glitchPercentage',
       'issuesPost0710',

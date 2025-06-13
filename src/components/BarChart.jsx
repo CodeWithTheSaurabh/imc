@@ -941,6 +941,8 @@ const BarChart = ({ data, options, title, loading = false, error = null, sheetNa
                 </div>
               )}
 
+
+
               {/* No Data Message */}
               {((selectedDetails.type === 'general' && (!selectedDetails.rawData || selectedDetails.rawData.length === 0)) ||
                 (selectedDetails.type === 'timing' && (!selectedDetails.details || selectedDetails.details.length === 0) && (!selectedDetails.rawData || selectedDetails.rawData.length === 0)) ||

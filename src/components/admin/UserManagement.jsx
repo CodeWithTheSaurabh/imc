@@ -656,6 +656,8 @@ const UserManagement = ({ currentUser, stats, setStats }) => {
           </div>
         </div>
       )}
+
+
     </div>
   );
 };
