@@ -749,11 +749,11 @@ export const CHART_TITLES = {
   onRouteVehicles: 'On Route Vehicles',
   lessThan3Trips: 'Vehicles with Less than 3 Trips',
   glitchPercentage: 'Route Percent Coverage',
-  issuesPost0710: 'Vehicle Starting after 7:10AM',
-  fuelStation: 'Vehicles Going to Fuel Station',
-  post06AMOpenIssues: 'Vehicles Leaving Zone After 6PM',
-  vehicleBreakdown: 'Vehicle Breakdown Information',
-  vehicleNumbers: 'Vehicle Number with Zone Wise Breakdown',
+  issuesPost0710: 'Vehicles Cover First Point After 7:10 AM',
+  fuelStation: 'Vehicles Going to Fuel Station On Route',
+  post06AMOpenIssues: 'Open Vehicles Depart Zone After 6:00 AM',
+  vehicleBreakdown: 'On Route Vehicles Breakdown Information',
+  vehicleNumbers: 'Zone Wise Breakdown Vehicle Count',
   sphereWorkshopExit: 'Sphere Vehicles Exit Late for the Workshop'
 };
 

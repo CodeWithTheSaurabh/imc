@@ -32,8 +32,9 @@ const VehicleTripsModal = ({
   const chartOptions = getChartConfig(CHART_TITLES[sheetName], sheetName);
 
   // Calculate statistics
-  const totalCount = chartData.datasets[0]?.data?.reduce((sum, value) => sum + value, 0) || 0;
-  const maxValue = Math.max(...(chartData.datasets[0]?.data || [0]));
+  const chartDataValues = chartData.datasets[0]?.data || [];
+  const totalCount = chartDataValues.reduce((sum, value) => sum + (value || 0), 0);
+  const maxValue = chartDataValues.length > 0 ? Math.max(...chartDataValues) : 0;
   const avgValue = totalCount > 0 ? (totalCount / chartData.labels.length).toFixed(1) : 0;
 
   // Fallback data for testing if no real data is available

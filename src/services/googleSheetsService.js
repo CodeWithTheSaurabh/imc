@@ -534,6 +534,9 @@ export const fetchSheetData = async (sheetName) => {
     }
 
     const url = getSheetCSVUrl(gid);
+
+
+
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -541,6 +544,8 @@ export const fetchSheetData = async (sheetName) => {
     }
 
     const csvText = await response.text();
+
+
 
 
 
@@ -692,3 +697,5 @@ export const getUniqueDates = (data) => {
   });
   return Array.from(dates).sort();
 };
+
+

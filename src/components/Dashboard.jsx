@@ -85,9 +85,10 @@ const Dashboard = () => {
     const valueField = getValueField(sheetName);
     const chartData = processDataForChart(filteredData, valueField, 'Zone', sheetName, tripCountFilter);
 
-    // Calculate basic stats for preview
-    const totalCount = chartData.datasets[0]?.data?.reduce((sum, value) => sum + value, 0) || 0;
-    const maxValue = Math.max(...(chartData.datasets[0]?.data || [0]));
+    // Calculate basic stats for preview - with improved accuracy
+    const chartDataValues = chartData.datasets[0]?.data || [];
+    const totalCount = chartDataValues.reduce((sum, value) => sum + (value || 0), 0);
+    const maxValue = chartDataValues.length > 0 ? Math.max(...chartDataValues) : 0;
     const activeZones = chartData.labels.length;
 
     return (
@@ -306,7 +307,7 @@ const Dashboard = () => {
         )}
 
         {/* Enhanced Charts Grid - Mobile Responsive */}
-        <div className="mobile-dashboard-grid md:grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 md:gap-6 lg:gap-8 auto-rows-fr">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 auto-rows-fr">
           {Object.keys(CHART_TITLES).map(sheetName => (
             <div key={sheetName} className="flex">
               {sheetName === 'lessThan3Trips' ? (
