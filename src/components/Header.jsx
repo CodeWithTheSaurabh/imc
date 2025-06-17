@@ -109,7 +109,7 @@ const Header = ({ availableZones = [], user = null, onLogin, onLogout, onShowAdm
                       <span className="hidden lg:inline">Dashboard</span>
                     </button>
                   )}
-
+                      
                   {/* User Info */}
                   <div className="text-right text-white">
                     <div className="text-sm font-medium">{user.name || 'User'}</div>

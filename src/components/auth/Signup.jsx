@@ -16,12 +16,13 @@ const Signup = ({ onSuccess, onSwitchToLogin }) => {
   const [success, setSuccess] = useState('');
 
   const departments = [
-    'Traffic Management',
-    'Public Transport',
-    'Emergency Services',
+    'Commissioner',
+    'Smart City',
+    'SBM',
     'Municipal Operations',
-    'IT Department',
+    'Health Officer',
     'Administration',
+    'User',
     'Other'
   ];
 

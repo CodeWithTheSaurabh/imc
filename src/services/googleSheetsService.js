@@ -12,7 +12,7 @@ const SHEET_GIDS = {
   vehicleBreakdown: '213524255',
   vehicleNumbers: '510665731',
   sphereWorkshopExit: '291765477'
-};
+};   
 
 // Convert Google Sheets to CSV URL
 const getSheetCSVUrl = (gid) => {
@@ -77,7 +77,6 @@ const parseCSV = (csvText) => {
     const result = [];
     let current = '';
     let inQuotes = false;
-
     for (let i = 0; i < line.length; i++) {
       const char = line[i];
 
@@ -397,7 +396,6 @@ const transformIssueData = (data) => {
       });
     }
   });
-
   return longData;
 };
 
@@ -544,11 +542,6 @@ export const fetchSheetData = async (sheetName) => {
     }
 
     const csvText = await response.text();
-
-
-
-
-
     let parsedData = parseCSV(csvText);
 
     // Check data format and transform accordingly
