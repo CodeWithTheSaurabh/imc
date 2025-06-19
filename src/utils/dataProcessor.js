@@ -1,24 +1,19 @@
 import { format } from 'date-fns';
 import { shouldIncludeRow } from './dateFilterLogic';
-
 // Get current date in YYYY-MM-DD format
 export const getCurrentDate = () => {
   return format(new Date(), 'yyyy-MM-dd');
 };
-
 // Normalize date format to handle different date formats
 const normalizeDate = (dateStr) => {
   if (!dateStr) return '';
-
   // Handle different date formats
   const date = new Date(dateStr);
   if (isNaN(date.getTime())) {
     return dateStr; // Return original if can't parse
   }
-
   return format(date, 'yyyy-MM-dd');
 };
-
 /**
  * Filter data by date, zone, and trip count
  *

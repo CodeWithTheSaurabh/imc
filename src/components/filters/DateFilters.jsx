@@ -195,7 +195,7 @@ const DateFilters = ({
                 htmlFor="start-date-input"
                 className={FILTER_STYLES.SMALL_LABEL}
               >
-                Start Date (From)
+                Start Date
               </label>
               <input
                 id="start-date-input"
@@ -216,7 +216,7 @@ const DateFilters = ({
                 htmlFor="end-date-input"
                 className={FILTER_STYLES.SMALL_LABEL}
               >
-                End Date (To)
+                End Date
               </label>
               <input
                 id="end-date-input"
